@@ -1,0 +1,22 @@
+.Form .formFields {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.Form .formFields > * {
+  margin: 5px 0;
+}
+
+.Form label {
+  width: 50%;
+  padding: 0 15px;
+}
+
+.Form input {
+  width: 100%;
+}
+
+.Form button {
+  margin: 15px;
+  width: 2;
+}

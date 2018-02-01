@@ -1,0 +1,7 @@
+.DataTable td, th {
+  padding: 1px 15px;
+}
+
+.DataTable th {
+  text-align: left;
+}
