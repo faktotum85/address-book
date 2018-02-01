@@ -1,28 +1,32 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import * as actions from '../../store/actions';
 
 import DataTable from '../../components/DataTable/DataTable';
 
 class PersonsTable extends Component {
-    render () {
-        const personLabels = {
-            firstName: 'Vorname',
-            lastName: 'Nachname',
-            address: 'Adresse',
-            zipcode: 'Postleitzahl',
-            city: 'Stadt'
-        };        
+    componentWillMount() {
+        this.props.fetchPersons();
+    }
 
+    render () {
         return (
-            <DataTable labels={personLabels} data={this.props.persons} editRow={this.editPersonHandler} />
+            <DataTable labels={this.props.personLabels} data={this.props.persons} editRow={this.editPersonHandler} />
         );
     }
 }
 
 const mapStateToProps = state => {
     return {
+        personLabels: state.personLabels,
         persons: state.persons
     }
 }
 
-export default connect(mapStateToProps)(PersonsTable);
+const mapDispatchToProps = dispatch => {
+    return {
+        fetchPersons: () => dispatch(actions.fetchPersons())
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(PersonsTable);
