@@ -1,9 +1,9 @@
 import * as actionTypes from './actionTypes';
 import * as actions from './actions';
 import axios from '../axios-instance';
+import { push } from 'react-router-redux';
 
 const initialState = {
-    persons: [],
     personLabels: {
         firstName: 'Vorname',
         lastName: 'Nachname',
@@ -11,6 +11,8 @@ const initialState = {
         zipcode: 'Postleitzahl',
         city: 'Stadt'
     },
+    persons: [],
+    person: {},
     loading: true,
     error: false
 };
@@ -18,7 +20,7 @@ const initialState = {
 const reducer = (state = initialState, action) => {
     switch (action.type) {
         case actionTypes.FETCH_PERSONS:
-            axios.get('personss')
+            axios.get('persons')
                 .then(res => action.asyncDispatch(actions.fetchPersonsResponse(res.data)))
                 .catch(err => action.asyncDispatch(actions.fetchPersonsError(err)))
             return {
@@ -37,8 +39,69 @@ const reducer = (state = initialState, action) => {
             return {
                 ...state,
                 loading: false,
-                error: true
+                error: action.err
             }
+        case actionTypes.FETCH_PERSON:
+            axios.get('persons/' + action.id)
+                .then(res => action.asyncDispatch(actions.fetchPersonResponse(res.data)))
+                .catch(err => action.asyncDispatch(actions.fetchPersonError(err)))
+            return {
+                ...state,
+                loading: true,
+                error: false
+            }
+        case actionTypes.FETCH_PERSON_RESPONSE:
+            return {
+                ...state,
+                loading: false,
+                error: false,
+                person: action.person
+            }
+        case actionTypes.FETCH_PERSON_ERROR:
+            return {
+                ...state,
+                loading: false,
+                error: action.err
+            }
+        case actionTypes.CHANGE_PERSON_PROPERTY:
+            return {
+                ...state,
+                person: {
+                    ...state.person,
+                    [action.name]: action.value
+                }
+            }
+        case actionTypes.SAVE_PERSON:
+            if(action.id) {
+                axios.put('persons/' + action.id, state.person)
+                    .then(res => {
+                        action.asyncDispatch(actions.savePersonResponse(res.data));
+                        action.asyncDispatch(push('/persons'));
+                    })
+                    .catch(err => action.asyncDispatch(actions.savePersonError(err)))
+            } else {
+                axios.post('persons', state.person)
+                    .then(res => {
+                        action.asyncDispatch(actions.savePersonResponse(res.data));
+                        action.asyncDispatch(push('/persons'));
+                    })
+                    .catch(err => action.asyncDispatch(actions.savePersonError(err)))
+            }
+            return {
+                ...state,
+                loading: true
+            };
+        case actionTypes.SAVE_PERSON_RESPONSE:
+            return {
+                ...state, 
+                loading: false,
+            };
+        case actionTypes.SAVE_PERSON_ERROR:
+            return {
+                ...state,
+                loading: false,
+                error: action.err
+            };
         default: 
             return {
                 ...state
