@@ -8,7 +8,7 @@ const DataTable = (props) => {
   const labels = Object.values(props.labels);
   const rows = props.data.map(row => {
       const keyedRow = keys.map(label => row[label]);
-      return <DataTableRow key={row['_id']} rowData={keyedRow} />
+      return <DataTableRow key={row['_id']} rowData={keyedRow} id={row['_id']} />
   });
 
   return (
