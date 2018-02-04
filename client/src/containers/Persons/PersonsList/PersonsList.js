@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import * as actions from '../../../store/actions';
 
 import DataTable from '../../../components/DataTable/DataTable';
+import Spinner from '../../../components/UI/Spinner/Spinner';
 
 class PersonsList extends Component {
     componentWillMount() {
@@ -11,7 +12,9 @@ class PersonsList extends Component {
 
     render () {
         return (
-            <DataTable labels={this.props.personLabels} data={this.props.persons} />
+            this.props.loading 
+                ? <Spinner />
+                : <DataTable labels={this.props.personLabels} data={this.props.persons} />
         );
     }
 }
@@ -19,7 +22,8 @@ class PersonsList extends Component {
 const mapStateToProps = state => {
     return {
         personLabels: state.persons.personLabels,
-        persons: state.persons.persons
+        persons: state.persons.persons,
+        loading: state.persons.loading
     }
 }
 

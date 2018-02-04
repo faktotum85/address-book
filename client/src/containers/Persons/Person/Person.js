@@ -3,6 +3,8 @@ import { connect } from 'react-redux';
 import * as actions from '../../../store/actions';
 
 import PersonForm from '../../../components/PersonForm/PersonForm';
+import Spinner from '../../../components/UI/Spinner/Spinner';
+
 
 class Person extends Component {
     componentWillMount() {
@@ -28,14 +30,17 @@ class Person extends Component {
         const buttonText = this.props.person._id ? 'Save' : 'Add';
 
         return (
-            <PersonForm person={this.props.person} buttonText={buttonText} handleSubmit={this.onFormSubmit} handleInputChange={this.onInputChange}/>
+            this.props.loading
+                ? <Spinner />
+                : <PersonForm person={this.props.person} buttonText={buttonText} handleSubmit={this.onFormSubmit} handleInputChange={this.onInputChange}/>
         );
     }
 }
 
 const mapStateToProps = state => {
     return {
-        person: state.persons.person
+        person: state.persons.person,
+        loading: state.persons.loading
     }
 }
 
