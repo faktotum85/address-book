@@ -10,10 +10,10 @@ export const fetchPersons = (limit, offset) => {
     }
 }
 
-export const fetchPersonsResponse = (persons) => {
+export const fetchPersonsResponse = (data) => {
     return {
         type: actionTypes.FETCH_PERSONS_RESPONSE,
-        persons
+        data
     }
 }
 

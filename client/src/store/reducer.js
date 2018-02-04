@@ -14,7 +14,14 @@ const initialState = {
     persons: [],
     person: {},
     loading: false,
-    error: false
+    error: false,
+    pagination_first: null,
+    pagination_prev: null,
+    pagination_next: null,
+    pagination_last: null,
+    pagination_count: null,
+    pagination_start: null
+
 };
 
 const reducer = (state = initialState, action) => {
@@ -33,7 +40,13 @@ const reducer = (state = initialState, action) => {
                 ...state,
                 loading: false,
                 error: false,
-                persons: action.persons
+                persons: action.data.results,
+                pagination_first: action.data._links.first,
+                pagination_prev: action.data._links.prev,
+                pagination_next: action.data._links.next,
+                pagination_last: action.data._links.last,
+                pagination_count: action.data.count,
+                pagination_start: action.data.start
             }
         case actionTypes.FETCH_PERSONS_ERROR:
             return {
