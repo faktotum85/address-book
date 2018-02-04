@@ -63,6 +63,11 @@ const reducer = (state = initialState, action) => {
                 loading: false,
                 error: action.err
             }
+        case actionTypes.CLEAR_PERSON:
+            return {
+                ...state,
+                person: {}
+            }
         case actionTypes.CHANGE_PERSON_PROPERTY:
             return {
                 ...state,

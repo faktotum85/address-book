@@ -1,12 +1,14 @@
 import React from 'react';
 import { Link, withRouter } from 'react-router-dom';
 
+import classes from './DataTableRow.css';
+
 const DataTableRow = (props) => {
 
     return (
         <tr>
             {props.rowData.map((column, i) => <td key={i}>{column}</td>)}
-            <td>
+            <td className={classes.actions}>
                 <Link to={props.match.url + '/' + props.id}>
                     Edit
                 </Link>

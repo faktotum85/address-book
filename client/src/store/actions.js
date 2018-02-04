@@ -27,6 +27,12 @@ export const fetchPerson = (id) => {
     }
 }
 
+export const clearPerson = () => {
+    return {
+        type: actionTypes.CLEAR_PERSON
+    }
+}
+
 export const fetchPersonResponse = (person) => {
     return {
         type: actionTypes.FETCH_PERSON_RESPONSE,

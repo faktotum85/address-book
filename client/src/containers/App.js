@@ -10,8 +10,8 @@ class App extends Component {
             <div>
                 <nav className={classes.MainNav}>
                     <ul>
-                        <li><NavLink to="/persons">List</NavLink></li>
-                        <li><NavLink to="/persons/new">Add Person</NavLink></li>
+                        <li><NavLink to="/persons" exact activeClassName={classes.active}>List</NavLink></li>
+                        <li><NavLink to="/persons/new" activeClassName={classes.active}>Add Person</NavLink></li>
                     </ul>
                 </nav>
                 <main>

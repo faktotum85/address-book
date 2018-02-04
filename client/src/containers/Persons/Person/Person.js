@@ -7,10 +7,20 @@ import Spinner from '../../../components/UI/Spinner/Spinner';
 
 
 class Person extends Component {
-    componentDidMount() {
+    componentWillMount() {
         const id = this.props.match.params.id;
         if (id) {
             this.props.fetchPerson(id);
+        } else {
+            this.props.clearPerson();
+        }
+    }
+
+    componentWillReceiveProps(nextProps) {
+        const currentId = this.props.match.params.id;
+        const nextId = nextProps.match.params.id;
+        if (currentId !== nextId) {
+            nextId ? nextProps.fetchPerson(nextId) : nextProps.clearPerson();
         }
     }
     
@@ -47,7 +57,8 @@ const mapDispatchToProps = dispatch => {
     return {
         fetchPerson: (id) => dispatch(actions.fetchPerson(id)),
         changePersonProperty: (name, value) => dispatch(actions.changePersonProperty(name, value)),
-        savePerson: (id) => dispatch(actions.savePerson(id))
+        savePerson: (id) => dispatch(actions.savePerson(id)),
+        clearPerson: () => dispatch(actions.clearPerson())
     }
 }
 

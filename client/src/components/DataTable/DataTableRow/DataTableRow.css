@@ -1,0 +1,20 @@
+.actions > * {
+    margin: 0 20px;     
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.actions > *:hover {
+    text-decoration: underline;
+}
+
+.actions > button {
+    background: none;
+    font-size: inherit;
+    border: none;
+}
+
+.actions > a {
+    text-decoration: none;
+    color: inherit;
+}
