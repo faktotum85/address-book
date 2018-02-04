@@ -9,7 +9,7 @@ import Spinner from '../../../components/UI/Spinner/Spinner';
 class Person extends Component {
     componentWillMount() {
         const id = this.props.match.params.id;
-        if(id) {
+        if (id) {
             this.props.fetchPerson(id);
         }
     }
@@ -26,13 +26,13 @@ class Person extends Component {
         this.props.changePersonProperty(name, value);
     }
 
-    render () {
+    render() {
         const buttonText = this.props.person._id ? 'Save' : 'Add';
 
         return (
             this.props.loading
                 ? <Spinner />
-                : <PersonForm person={this.props.person} buttonText={buttonText} handleSubmit={this.onFormSubmit} handleInputChange={this.onInputChange}/>
+                : <PersonForm person={this.props.person} buttonText={buttonText} handleSubmit={this.onFormSubmit} handleInputChange={this.onInputChange} />
         );
     }
 }
