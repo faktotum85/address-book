@@ -7,6 +7,7 @@ const PersonForm = props => (
             <label>
                 Vorname
                 <input
+                    autoFocus
                     type="text"
                     name="firstName"
                     value={props.person.firstName || ''}

@@ -1,3 +1,7 @@
+.DataTable {
+    margin: 0 auto;
+}
+
 .DataTable td, th {
   padding: 1px 15px;
 }

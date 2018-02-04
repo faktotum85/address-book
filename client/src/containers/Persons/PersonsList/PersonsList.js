@@ -7,7 +7,8 @@ import Spinner from '../../../components/UI/Spinner/Spinner';
 
 class PersonsList extends Component {
     componentWillMount() {
-        this.props.fetchPersons();
+        const query = new URLSearchParams(this.props.location.search);
+        this.props.fetchPersons(query.get('limit'), query.get('offset'));
     }
 
     render () {
@@ -29,7 +30,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        fetchPersons: () => dispatch(actions.fetchPersons()),
+        fetchPersons: (limit, offset) => dispatch(actions.fetchPersons(limit, offset)),
         deletePerson: (id) => dispatch(actions.deletePerson(id))
     }
 }

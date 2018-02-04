@@ -1,8 +1,12 @@
 import * as actionTypes from './actionTypes';
 
-export const fetchPersons = () => {
+export const fetchPersons = (limit, offset) => {
+    const query = new URLSearchParams();
+    query.set('limit', limit || 10);
+    query.set('offset', offset || 0);
     return {
-        type: actionTypes.FETCH_PERSONS
+        type: actionTypes.FETCH_PERSONS,
+        query: query.toString()
     }
 }
 

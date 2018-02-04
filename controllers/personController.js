@@ -2,7 +2,10 @@ const mongoose = require('mongoose');
 const Person = mongoose.model('Person');
 
 exports.getPersons = async (req, res) => {
-    const persons = await Person.find();
+    console.log(req.query);
+    const limit = parseInt(req.query.limit, 10) || 10;
+    const offset = parseInt(req.query.offset, 10) || 0;
+    const persons = await Person.find().skip(offset).limit(limit);
     res.send(persons);
 };
 
