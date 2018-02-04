@@ -1,0 +1,18 @@
+.MainNav ul {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+}
+
+.MainNav li {
+    margin: 0 20px;
+}
+
+.MainNav a {
+    text-decoration: none;
+    color: inherit;
+}
+
+.MainNav a.active, .MainNav a:hover {
+    font-weight: bold;
+}

@@ -10,6 +10,9 @@ const DataTableRow = (props) => {
                 <Link to={props.match.url + '/' + props.id}>
                     Edit
                 </Link>
+                <button onClick={() => props.deleteHandler(props.id)}>
+                    Delete
+                </button>
             </td>
         </tr>
     );

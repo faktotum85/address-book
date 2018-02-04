@@ -13,7 +13,7 @@ const initialState = {
     },
     persons: [],
     person: {},
-    loading: true,
+    loading: false,
     error: false
 };
 
@@ -102,6 +102,28 @@ const reducer = (state = initialState, action) => {
                 loading: false,
                 error: action.err
             };
+        case actionTypes.DELETE_PERSON: 
+            axios.delete('persons/' + action.id)
+                .then(res => {
+                    action.asyncDispatch(actions.deletePersonResponse(res.data));
+                    action.asyncDispatch(actions.fetchPersons());
+                })
+                .catch(err => action.asyncDispatch(actions.deletePersonError(err)))
+            return {
+                ...state,
+                loading: true
+            }
+        case actionTypes.DELETE_PERSON_RESPONSE:
+            return {
+                ...state,
+                loading: false
+            }
+        case actionTypes.DELETE_PERSON_ERROR:
+            return {
+                ...state,
+                loading: false,
+                error: action.err
+            }
         default: 
             return {
                 ...state

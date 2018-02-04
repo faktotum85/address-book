@@ -58,7 +58,7 @@ export const savePerson = (id) => {
 
 export const savePersonResponse = () => {
     return {
-        type: actionTypes.SAVE_PERSON_RESPONSE,
+        type: actionTypes.SAVE_PERSON_RESPONSE
     }
 }
 
@@ -69,3 +69,23 @@ export const savePersonError = (err) => {
     }
 }
 
+export const deletePerson = (id) => {
+    return {
+        type: actionTypes.DELETE_PERSON,
+        id
+    }
+}
+
+export const deletePersonResponse = (id) => {
+    return {
+        type: actionTypes.DELETE_PERSON_RESPONSE,
+        id
+    }
+}
+
+export const deletePersonError = (err) => {
+    return {
+        type: actionTypes.DELETE_PERSON_ERROR,
+        err
+    }
+}

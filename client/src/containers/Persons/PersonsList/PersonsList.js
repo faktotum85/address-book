@@ -14,7 +14,7 @@ class PersonsList extends Component {
         return (
             this.props.loading 
                 ? <Spinner />
-                : <DataTable labels={this.props.personLabels} data={this.props.persons} />
+                : <DataTable labels={this.props.personLabels} data={this.props.persons} deleteHandler={this.props.deletePerson}/>
         );
     }
 }
@@ -29,7 +29,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        fetchPersons: () => dispatch(actions.fetchPersons())
+        fetchPersons: () => dispatch(actions.fetchPersons()),
+        deletePerson: (id) => dispatch(actions.deletePerson(id))
     }
 }
 

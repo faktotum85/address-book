@@ -7,16 +7,15 @@ import Spinner from '../../../components/UI/Spinner/Spinner';
 
 
 class Person extends Component {
-    componentWillMount() {
+    componentDidMount() {
         const id = this.props.match.params.id;
         if (id) {
             this.props.fetchPerson(id);
         }
     }
-
+    
     onFormSubmit = (e) => {
         e.preventDefault();
-        // save person
         this.props.savePerson(this.props.person._id)
     }
 
