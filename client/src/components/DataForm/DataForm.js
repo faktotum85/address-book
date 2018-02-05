@@ -1,7 +1,7 @@
 import React from 'react';
 import classes from './DataForm.css';
 
-const PersonForm = props => {
+const DataForm = props => {
     const formFields = Object.keys(props.config).map(key => (
         <label key={key}>
             {props.config[key].label}
@@ -25,4 +25,4 @@ const PersonForm = props => {
     );
 };
 
-export default PersonForm;
+export default DataForm;
