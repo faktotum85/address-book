@@ -8,22 +8,28 @@ exports.createUser = async (req, res) => {
 
 exports.authenticateUser = async (req, res) => {
     const user = await User.findOne({
-        email: req.body.email
+        username: req.body.username
     });
     if (!user) {
-        res.json({
+        return res.json({
             success: false,
             message: 'Authentication failed. User not found'
         });
-    } else if (user.password !== req.body.password) {
-        res.json({
-            success: false,
-            message: 'Authentication failed. Wrong password'
-        });
-    } else { // TODO: Need to actually generate the token :)
+    }
+    user.comparePassword(req.body.password, (err, isMatch) => {
+        if (err) {
+            console.log(err);
+            return res.status(500).send(err);
+        }
+        if (!isMatch) {
+            return res.json({
+                success: false, 
+                message: 'Authentication failed. Wrong password'
+            });
+        }
         res.json({
             success: true,
             message: 'Enjoy your token'
         });
-    }
+    });
 };
