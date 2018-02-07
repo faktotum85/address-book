@@ -1,8 +1,8 @@
 const mongoose = require('mongoose');
-const bcrypt = require('bcrypt');
+const bluebird = require('bluebird');
+const bcrypt = bluebird.promisifyAll(require('bcrypt'));
 const Schema = mongoose.Schema;
 
-// TODO: Need to encrypt password
 const userSchema = new Schema({
     username: {
         type: String,
@@ -17,33 +17,23 @@ const userSchema = new Schema({
     }
 });
 
-userSchema.pre('save', next => {
-    const user = this;
-    if (this.isModified('password') || this.isNew) {
-        bcrypt.genSalt(12, (err, salt) => {
-            if (err) {
-                return next(err);
-            }
-            bcrypt.hash(user.password, salt, (err, hash) => {
-                if (err) {
-                    return next(err);
-                }
-                user.password = hash;
-                next();
-            });
-        });
-    } else {
-        return next();
-    }
+userSchema.pre('save', function(next) {
+    if (!(this.isModified('password') || this.isNew)) return next();
+    bcrypt.genSalt(12)
+        .then(salt => {
+            return bcrypt.hash(this.password, salt);
+        })
+        .then(hash => {
+            this.password = hash;
+            next();
+        })
+        .catch(err => next(err));
 });
 
-userSchema.methods.comparePassword = function (password, done) {
-    bcrypt.compare(password, this.password, (err, isMatch) => {
-        if (err) {
-            return done(err);
-        }
-        done(null, isMatch);
-    });
+userSchema.methods.comparePassword = function (password, next) {
+    bcrypt.compare(password, this.password)
+        .then(isMatch => next(null, isMatch))
+        .catch(err => next(err));
 };
 
 module.exports = mongoose.model('User', userSchema);
