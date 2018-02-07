@@ -18,10 +18,7 @@ const userSchema = new Schema({
 
 userSchema.pre('save', function(next) {
     if (!(this.isModified('password') || this.isNew)) return next();
-    bcrypt.genSalt(12)
-        .then(salt => {
-            return bcrypt.hash(this.password, salt);
-        })
+    bcrypt.hash(this.password, 12)
         .then(hash => {
             this.password = hash;
             next();
