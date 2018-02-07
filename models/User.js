@@ -1,6 +1,5 @@
 const mongoose = require('mongoose');
-const bluebird = require('bluebird');
-const bcrypt = bluebird.promisifyAll(require('bcrypt'));
+const bcrypt = require('bcrypt');
 const Schema = mongoose.Schema;
 
 const userSchema = new Schema({
