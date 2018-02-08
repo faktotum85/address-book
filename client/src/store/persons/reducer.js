@@ -1,7 +1,8 @@
-import * as actionTypes from './actionTypes';
-import * as actions from './actions';
-import axios from '../axios-instance';
 import { push } from 'react-router-redux';
+
+import * as actionTypes from '../actionTypes';
+import * as actions from './actions';
+import axios from '../../axios-instance';
 
 const initialState = {
     personLabels: {

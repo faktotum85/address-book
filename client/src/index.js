@@ -6,7 +6,9 @@ import ReactDOM from 'react-dom';
 import { createStore, applyMiddleware, compose, combineReducers } from 'redux';
 import { Provider } from 'react-redux';
 
-import reducer from './store/reducer';
+import personsReducer from './store/persons/reducer';
+import authReducer from './store/auth/reducer';
+
 import asyncDispatchMiddleware from './store/middleware/asyncDispatchMiddleware';
 
 import './index.css';
@@ -14,7 +16,8 @@ import App from './containers/App';
 import registerServiceWorker from './registerServiceWorker';
 
 const rootReducer = combineReducers({
-    persons: reducer,
+    persons: personsReducer,
+    auth: authReducer,
     router: routerReducer
 });
 
