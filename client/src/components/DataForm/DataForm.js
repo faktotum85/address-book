@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import classes from './DataForm.css';
 
 const DataForm = props => {
@@ -24,5 +25,13 @@ const DataForm = props => {
         </form>
     );
 };
+
+DataForm.propTypes = {
+    config: PropTypes.object.isRequired,
+    data: PropTypes.object.isRequired,
+    buttonText: PropTypes.string.isRequired,
+    handleSubmit: PropTypes.func.isRequired,
+    handleInputChange: PropTypes.func.isRequired 
+}
 
 export default DataForm;
