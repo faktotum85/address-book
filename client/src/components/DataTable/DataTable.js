@@ -7,7 +7,7 @@ import classes from './DataTable.css';
 
 const DataTable = (props) => {
     const keys = Object.keys(props.labels);
-    const labels = Object.values(props.labels);
+    const labels = keys.map(key => props.labels[key].label);
     const rows = props.data.map(row => {
         const keyedRow = keys.map(label => row[label]);
         return <DataTableRow key={row['_id']} rowData={keyedRow} id={row['_id']} deleteHandler={props.deleteHandler} />

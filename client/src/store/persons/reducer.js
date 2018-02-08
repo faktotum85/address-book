@@ -5,12 +5,32 @@ import * as actions from './actions';
 import axios from '../../axios-instance';
 
 const initialState = {
-    personLabels: {
-        firstName: 'Vorname',
-        lastName: 'Nachname',
-        address: 'Adresse',
-        zipcode: 'Postleitzahl',
-        city: 'Stadt'
+    config: {
+        firstName: {
+            label: 'First name',
+            type: 'text',
+            required: true
+        },
+        lastName: {
+            label: 'Last name',
+            type: 'text',
+            required: true
+        },
+        address: {
+            label: 'Address',
+            type: 'text',
+            required: true
+        },
+        zipcode: {
+            label: 'Zip code',
+            type: 'text',
+            required: true
+        },
+        city: {
+            label: 'City',
+            type: 'text',
+            required: true
+        }
     },
     persons: [],
     person: {},

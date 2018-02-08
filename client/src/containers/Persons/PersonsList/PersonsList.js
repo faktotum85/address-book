@@ -23,7 +23,7 @@ class PersonsList extends Component {
             this.props.loading 
                 ? <Spinner />
                 : <DataTable 
-                    labels={this.props.personLabels} 
+                    labels={this.props.config} 
                     data={this.props.persons}
                     deleteHandler={this.props.deletePerson}
                     pagination={{
@@ -41,7 +41,7 @@ class PersonsList extends Component {
 
 const mapStateToProps = state => {
     return {
-        personLabels: state.persons.personLabels,
+        config: state.persons.config,
         persons: state.persons.persons,
         loading: state.persons.loading,
         first: state.persons.pagination_first,

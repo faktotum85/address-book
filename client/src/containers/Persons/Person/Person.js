@@ -24,34 +24,6 @@ class Person extends Component {
         }
     }
 
-    config = {
-        firstName: {
-            label: 'Vorname',
-            type: 'text',
-            required: true
-        },
-        lastName: {
-            label: 'Nachname',
-            type: 'text',
-            required: true
-        },
-        address: {
-            label: 'Adresse',
-            type: 'text',
-            required: true
-        },
-        zipcode: {
-            label: 'Postleitzahl',
-            type: 'text',
-            required: true
-        },
-        city: {
-            label: 'Stadt',
-            type: 'text',
-            required: true
-        }
-    }
-    
     onFormSubmit = (e) => {
         e.preventDefault();
         this.props.savePerson(this.props.person._id)
@@ -69,13 +41,14 @@ class Person extends Component {
         return (
             this.props.loading
                 ? <Spinner />
-                : <DataForm config={this.config} data={this.props.person} buttonText={buttonText} handleSubmit={this.onFormSubmit} handleInputChange={this.onInputChange} />
+                : <DataForm config={this.props.config} data={this.props.person} buttonText={buttonText} handleSubmit={this.onFormSubmit} handleInputChange={this.onInputChange} />
         );
     }
 }
 
 const mapStateToProps = state => {
     return {
+        config: state.persons.config,
         person: state.persons.person,
         loading: state.persons.loading
     }
