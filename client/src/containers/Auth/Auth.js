@@ -2,8 +2,7 @@ import React, { Component } from 'react';
 import { Switch, Route } from 'react-router-dom';
 import { connect } from 'react-redux';
 
-import Login from '../../components/Auth/Login/Login';
-import Signup from '../../components/Auth/Signup/Signup';
+import DataForm from '../../components/DataForm/DataForm';
 
 import * as actions from '../../store/auth/actions';
 
@@ -21,20 +20,38 @@ class Auth extends Component {
         });
     }
 
-    onSubmit = e => {
+    onSubmitSignup = e => {
         e.preventDefault();
-        this.props.submit(this.state.username, this.state.password);
+        this.props.signup(this.state.username, this.state.password);
     }
 
-       
+    onSubmitLogin = e => {
+        e.preventDefault();
+        this.props.login(this.state.username, this.state.password);
+    }
+    
     render () {
         return (
             <Switch>
                 <Route path="/signup" render={() => (
-                    <Signup userdata={this.state} config={this.props.config} handleInputChange={this.onInputChange} handleSubmit={this.onSubmit}/>
+                    <DataForm 
+                        title="Sign up"
+                        data={this.state} 
+                        config={this.props.config} 
+                        buttonText='Sign up' 
+                        handleInputChange={this.onInputChange} 
+                        handleSubmit={this.onSubmitSignup} 
+                    />
                 )}/>
                 <Route path="/login" render={() => (
-                    <Login />
+                    <DataForm
+                        title="Log in"
+                        data={this.state}
+                        config={this.props.config}
+                        buttonText='Sign up'
+                        handleInputChange={this.onInputChange}
+                        handleSubmit={this.onSubmitLogin}
+                    />
                 )} />
             </Switch>
         );
@@ -49,7 +66,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        submit: (username, password) => dispatch(actions.submitSignup(username, password))
+        signup: (username, password) => dispatch(actions.signup(username, password)),
+        login: (username, password) => dispatch(actions.login(username, password)),        
     }
 }
 

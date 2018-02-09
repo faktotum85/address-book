@@ -17,7 +17,7 @@ router.put('/persons/:id', catchErrors(personController.editPerson));
 router.post('/persons', catchErrors(personController.createPerson));
 router.delete('/persons/:id', catchErrors(personController.deletePerson));
 
-router.post('/users', catchErrors(userController.createUser));
+router.post('/users', userController.createUser);
 router.post('/users/authenticate', catchErrors(userController.authenticateUser));
 router.get('/protected', passport.authenticate('jwt', {session: false}), (req, res) => res.send('Go ahead'));
 

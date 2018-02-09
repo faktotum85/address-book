@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classes from './DataForm.css';
+import Wrapper from '../../hoc/Wrapper/Wrapper';
 
 const DataForm = props => {
     const formFields = Object.keys(props.config).map(key => (
@@ -16,13 +17,18 @@ const DataForm = props => {
         </label>
     ));
 
+    const title = props.title ? <h1>{props.title}</h1> : null;
+
     return (
-        <form className={classes.Form} onSubmit={props.handleSubmit}>
-            <div className={classes.formFields}>
-                {formFields}
-            </div>
-            <button type="submit">{props.buttonText}</button>
-        </form>
+        <Wrapper>
+            {title}
+            <form className={classes.Form} onSubmit={props.handleSubmit}>
+                <div className={classes.formFields}>
+                    {formFields}
+                </div>
+                <button type="submit">{props.buttonText}</button>
+            </form>
+        </Wrapper>
     );
 };
 
@@ -31,7 +37,8 @@ DataForm.propTypes = {
     data: PropTypes.object.isRequired,
     buttonText: PropTypes.string.isRequired,
     handleSubmit: PropTypes.func.isRequired,
-    handleInputChange: PropTypes.func.isRequired 
+    handleInputChange: PropTypes.func.isRequired,
+    title: PropTypes.string
 }
 
 export default DataForm;
