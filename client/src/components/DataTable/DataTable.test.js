@@ -23,9 +23,14 @@ describe('DataTable', () => {
         }
     });
 
-    it('renders a table', () => {
+    it('always renders a table', () => {
+        const table = dataTable().find('table');
+        expect(table.length).toBe(1);
+    });
+
+    it('renders a table when data is passed in', () => {
         props.labels = ['name'];
-        props.data = [{name: 'Simon'}];
+        props.data = [{name: 'Simon', _id: 1}];
         const table = dataTable(props).find('table');
         expect(table.length).toBe(1);
     });

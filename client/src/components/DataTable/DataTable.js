@@ -6,12 +6,17 @@ import Wrapper from '../../hoc/Wrapper/Wrapper';
 import classes from './DataTable.css';
 
 const DataTable = (props) => {
-    const keys = Object.keys(props.labels);
-    const labels = keys.map(key => props.labels[key].label);
-    const rows = props.data.map(row => {
-        const keyedRow = keys.map(label => row[label]);
-        return <DataTableRow key={row['_id']} rowData={keyedRow} id={row['_id']} deleteHandler={props.deleteHandler} />
-    });
+    let headerRow, dataRows, keys;
+    if (props.labels) {
+        keys = Object.keys(props.labels);
+        headerRow = keys
+            .map(key => props.labels[key].label)
+            .map((label, i) => <th key={i}>{label}</th>);
+        dataRows = props.data.map(row => {
+            const keyedRow = keys.map(label => row[label]);
+            return <DataTableRow key={row['_id']} rowData={keyedRow} id={row['_id']} deleteHandler={props.deleteHandler} />
+        });
+    }
 
     const pagination = props.pagination 
         ? <div className={classes.pagination}>
@@ -32,11 +37,11 @@ const DataTable = (props) => {
             <table className={classes.DataTable}>
                 <thead>
                     <tr>
-                        {labels.map((label, i) => <th key={i}>{label}</th>)}
+                        {headerRow}
                     </tr>
                 </thead>
                 <tbody>
-                    {rows}
+                    {dataRows}
                 </tbody>
             </table>
             {pagination}
