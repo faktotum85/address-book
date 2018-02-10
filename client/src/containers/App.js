@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Route, Switch, Redirect, NavLink } from 'react-router-dom';
+import Wrapper from '../hoc/Wrapper/Wrapper';
 
 import Persons from './Persons/Persons';
 import Auth from './Auth/Auth';
@@ -8,7 +9,7 @@ import classes from './App.css';
 class App extends Component {
     render() {
         return (
-            <div>
+            <Wrapper>
                 <nav className={classes.MainNav}>
                     <ul>
                         <li><NavLink to="/persons" exact activeClassName={classes.active}>List</NavLink></li>
@@ -25,7 +26,7 @@ class App extends Component {
                         <Redirect from="/" to="/persons" />
                     </Switch>
                 </main>
-            </div>
+            </Wrapper>
         );
     }
 }

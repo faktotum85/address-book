@@ -13,7 +13,7 @@ const DataTable = (props) => {
         return <DataTableRow key={row['_id']} rowData={keyedRow} id={row['_id']} deleteHandler={props.deleteHandler} />
     });
 
-    const pagination = Object.keys(props.pagination).length > 0 
+    const pagination = props.pagination 
         ? <div className={classes.pagination}>
             <div>
                 Showing {props.pagination.start + 1} to {props.pagination.start + props.data.length} of {props.pagination.count} entries
