@@ -38,7 +38,6 @@ export const loginResponse = res => {
 }
 
 export const loginError = err => {
-    console.log(err);
     return {
         type: actionTypes.LOGIN_ERROR,
         err
