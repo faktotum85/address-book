@@ -48,7 +48,7 @@ const initialState = {
 const reducer = (state = initialState, action) => {
     switch (action.type) {
         case actionTypes.FETCH_PERSONS:
-            axios.get('persons?' + action.query)
+            axios.get('persons' + action.query)
                 .then(res => action.asyncDispatch(actions.fetchPersonsResponse(res.data)))
                 .catch(err => action.asyncDispatch(actions.fetchPersonsError(err)))
             return {

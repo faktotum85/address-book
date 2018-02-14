@@ -6,7 +6,7 @@ export const fetchPersons = (limit, offset) => {
     query.set('offset', offset || 0);
     return {
         type: actionTypes.FETCH_PERSONS,
-        query: query.toString()
+        query: `?${query.toString()}`
     }
 }
 
