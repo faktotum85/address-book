@@ -5,7 +5,7 @@ import * as actions from '../../../store/persons/actions';
 import DataTable from '../../../components/DataTable/DataTable';
 import Spinner from '../../../components/UI/Spinner/Spinner';
 
-class PersonsList extends Component {
+export class PersonsList extends Component {
     componentWillMount() {
         const query = new URLSearchParams(this.props.location.search);
         this.props.fetchPersons(query.get('limit'), query.get('offset'));

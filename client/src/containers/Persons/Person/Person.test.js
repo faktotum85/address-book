@@ -6,34 +6,43 @@ import Person from './Person';
 
 describe('Person', () => {
     let shallowPerson;
-    let props;
-    let store
-    const initialState = {
-        persons: {
-            config: {},
-            person: {},
-            loading: false
-        }
-    }
+    let props, store, initialState;
     const mockStore = configureStore();
 
-    const makePerson = (props) => {
+    const makePerson = (props, state) => {
         if (!shallowPerson) {
-            store = mockStore(initialState);
+            store = mockStore(state);
             shallowPerson = shallow(
                 <Person {...props} store={store} />
-            );
+            ).shallow();
             return shallowPerson;
         }
     }
 
     beforeEach(() => {
         shallowPerson = undefined;
-        props = {}
+        props = {
+            match: {
+                params: {}
+            }
+        };
+        initialState = {
+            persons: {
+                config: {},
+                person: {},
+                loading: false
+            }
+        }
     });
 
     it('renders correctly', () => {
-        const shallowPerson = makePerson(props);
+        const shallowPerson = makePerson(props, initialState);
         expect(shallowPerson).toMatchSnapshot();
+    });
+
+    it('renders a Spinner if loading', () => {
+        initialState.persons.loading = true;
+        const shallowPerson = makePerson(props, initialState);
+        expect(shallowPerson.find('Spinner').exists()).toBe(true);
     });
 });

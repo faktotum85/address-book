@@ -4,7 +4,19 @@ exports[`Person renders correctly 1`] = `
 ShallowWrapper {
   "length": 1,
   Symbol(enzyme.__root__): [Circular],
-  Symbol(enzyme.__unrendered__): <Connect(Person)
+  Symbol(enzyme.__unrendered__): <Person
+    changePersonProperty={[Function]}
+    clearPerson={[Function]}
+    config={Object {}}
+    fetchPerson={[Function]}
+    loading={false}
+    match={
+      Object {
+        "params": Object {},
+      }
+    }
+    person={Object {}}
+    savePerson={[Function]}
     store={
       Object {
         "clearActions": [Function],
@@ -15,35 +27,8 @@ ShallowWrapper {
         "subscribe": [Function],
       }
     }
-  />,
-  Symbol(enzyme.__renderer__): Object {
-    "batchedUpdates": [Function],
-    "getNode": [Function],
-    "render": [Function],
-    "simulateEvent": [Function],
-    "unmount": [Function],
-  },
-  Symbol(enzyme.__node__): Object {
-    "instance": null,
-    "key": undefined,
-    "nodeType": "class",
-    "props": Object {
-      "changePersonProperty": [Function],
-      "clearPerson": [Function],
-      "config": Object {},
-      "fetchPerson": [Function],
-      "loading": false,
-      "person": Object {},
-      "savePerson": [Function],
-      "store": Object {
-        "clearActions": [Function],
-        "dispatch": [Function],
-        "getActions": [Function],
-        "getState": [Function],
-        "replaceReducer": [Function],
-        "subscribe": [Function],
-      },
-      "storeSubscription": Subscription {
+    storeSubscription={
+      Subscription {
         "listeners": Object {
           "clear": [Function],
           "get": [Function],
@@ -61,7 +46,26 @@ ShallowWrapper {
           "subscribe": [Function],
         },
         "unsubscribe": [Function],
-      },
+      }
+    }
+  />,
+  Symbol(enzyme.__renderer__): Object {
+    "batchedUpdates": [Function],
+    "getNode": [Function],
+    "render": [Function],
+    "simulateEvent": [Function],
+    "unmount": [Function],
+  },
+  Symbol(enzyme.__node__): Object {
+    "instance": null,
+    "key": undefined,
+    "nodeType": "function",
+    "props": Object {
+      "buttonText": "Add",
+      "config": Object {},
+      "data": Object {},
+      "handleInputChange": [Function],
+      "handleSubmit": [Function],
     },
     "ref": null,
     "rendered": null,
@@ -71,42 +75,13 @@ ShallowWrapper {
     Object {
       "instance": null,
       "key": undefined,
-      "nodeType": "class",
+      "nodeType": "function",
       "props": Object {
-        "changePersonProperty": [Function],
-        "clearPerson": [Function],
+        "buttonText": "Add",
         "config": Object {},
-        "fetchPerson": [Function],
-        "loading": false,
-        "person": Object {},
-        "savePerson": [Function],
-        "store": Object {
-          "clearActions": [Function],
-          "dispatch": [Function],
-          "getActions": [Function],
-          "getState": [Function],
-          "replaceReducer": [Function],
-          "subscribe": [Function],
-        },
-        "storeSubscription": Subscription {
-          "listeners": Object {
-            "clear": [Function],
-            "get": [Function],
-            "notify": [Function],
-            "subscribe": [Function],
-          },
-          "onStateChange": [Function],
-          "parentSub": undefined,
-          "store": Object {
-            "clearActions": [Function],
-            "dispatch": [Function],
-            "getActions": [Function],
-            "getState": [Function],
-            "replaceReducer": [Function],
-            "subscribe": [Function],
-          },
-          "unsubscribe": [Function],
-        },
+        "data": Object {},
+        "handleInputChange": [Function],
+        "handleSubmit": [Function],
       },
       "ref": null,
       "rendered": null,

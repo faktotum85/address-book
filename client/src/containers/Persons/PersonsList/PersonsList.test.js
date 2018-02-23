@@ -1,45 +1,92 @@
 import React from 'react';
 import configureStore from 'redux-mock-store';
 import { shallow } from 'enzyme';
+import * as actions from '../../../store/actionTypes';
 
-import PersonsList from './PersonsList';
+import ConnectedPersonsList, { PersonsList } from './PersonsList';
 
-describe('PersonsList', () => {
-    let shallowPersonsList;
-    let props;
-    let store
-    const initialState = {
-        persons: {
-            config: {},
-            person: {},
-            loading: false,
-            pagination_first: '',
-            pagination_prev: '',
-            pagination_next: '',
-            pagination_last: '',
-            pagination_count: '',
-            pagination_start: '',
+describe('ConnectedPersonsList', () => {
+    let shallowConnectedPersonsList, shallowPersonsList;
+    let props, store, initialState;
+    const mockStore = configureStore();
+
+    const makeConnectedPersonsList = (props, initialState) => {
+        if (!shallowConnectedPersonsList) {
+            store = mockStore(initialState);
+            shallowConnectedPersonsList = shallow(
+                <ConnectedPersonsList {...props} store={store} />
+            ).shallow();
+            return shallowConnectedPersonsList;
         }
     }
-    const mockStore = configureStore();
 
     const makePersonsList = (props) => {
         if (!shallowPersonsList) {
-            store = mockStore(initialState);
             shallowPersonsList = shallow(
-                <PersonsList {...props} store={store} />
+                <PersonsList {...props} />
             );
             return shallowPersonsList;
         }
     }
 
     beforeEach(() => {
+        shallowConnectedPersonsList = undefined;
         shallowPersonsList = undefined;
-        props = {}
+        props = {
+            location: {}
+        };
+        initialState = {
+            persons: {
+                config: {},
+                person: {},
+                loading: false,
+                pagination_first: '',
+                pagination_prev: '',
+                pagination_next: '',
+                pagination_last: '',
+                pagination_count: '',
+                pagination_start: '',
+            }
+        };
     });
 
     it('renders correctly', () => {
-        const shallowPersonsList = makePersonsList(props);
-        expect(shallowPersonsList).toMatchSnapshot();
+        const shallowConnectedPersonsList = makeConnectedPersonsList(props, initialState);
+        expect(shallowConnectedPersonsList).toMatchSnapshot();
+    });
+
+    it('renders a Spinner if loading', () => {
+        initialState.persons.loading = true;
+        const shallowConnectedPersonsList = makeConnectedPersonsList(props, initialState);
+        expect(shallowConnectedPersonsList.find('Spinner').exists()).toBe(true);
+    });
+
+    it('calls props.fetchPersons when mounting', () => {
+        const fetchPersons = jest.fn();
+        props.fetchPersons = fetchPersons;
+        makePersonsList(props);
+        expect(fetchPersons).toBeCalled();
+    });
+
+    it('calls props.fetchPersons again if new search params are passed in as props', () => {
+        const fetchPersons = jest.fn();
+        const shallowPersonsList = makePersonsList({ location: { search: '?limit=5&offset=0' }, fetchPersons });
+        shallowPersonsList.setProps({ location: { search: '?limit=5&offset=10' }, fetchPersons });
+        expect(fetchPersons.mock.calls.length).toBe(2);
+    });
+
+    it('does not call props.fetchPersons twice unless the search params actually change', () => {
+        const fetchPersons = jest.fn();
+        const shallowPersonsList = makePersonsList({ location: { search: '?limit=5&offset=10' }, fetchPersons });
+        shallowPersonsList.setProps({ location: { search: '?limit=5&offset=10' }, fetchPersons });
+        expect(fetchPersons.mock.calls.length).toBe(1);
+    });
+
+    it('passes a deletePerson handler to the DataTable that dispatches a DELETE_PERSON action', () => {
+        const shallowConnectedPersonsList = makeConnectedPersonsList(props, initialState);
+        const id = 7;
+        store.clearActions()
+        shallowConnectedPersonsList.find('DataTable').prop('deleteHandler')(id);
+        expect(store.getActions()).toEqual([{ type: actions.DELETE_PERSON, id}]);
     });
 });
