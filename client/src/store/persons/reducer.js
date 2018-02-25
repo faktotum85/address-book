@@ -1,8 +1,4 @@
-import { push } from 'react-router-redux';
-
 import * as actionTypes from '../actionTypes';
-import * as actions from './actions';
-import axios from '../../axios-instance';
 
 const initialState = {
     config: {
@@ -48,9 +44,6 @@ const initialState = {
 const reducer = (state = initialState, action) => {
     switch (action.type) {
         case actionTypes.FETCH_PERSONS:
-            axios.get('persons' + action.query)
-                .then(res => action.asyncDispatch(actions.fetchPersonsResponse(res.data)))
-                .catch(err => action.asyncDispatch(actions.fetchPersonsError(err)))
             return {
                 ...state,
                 loading: true,
@@ -76,9 +69,6 @@ const reducer = (state = initialState, action) => {
                 error: action.err
             }
         case actionTypes.FETCH_PERSON:
-            axios.get('persons/' + action.id)
-                .then(res => action.asyncDispatch(actions.fetchPersonResponse(res.data)))
-                .catch(err => action.asyncDispatch(actions.fetchPersonError(err)))
             return {
                 ...state,
                 loading: true,
@@ -111,21 +101,6 @@ const reducer = (state = initialState, action) => {
                 }
             }
         case actionTypes.SAVE_PERSON:
-            if(action.id) {
-                axios.put('persons/' + action.id, state.person)
-                    .then(res => {
-                        action.asyncDispatch(actions.savePersonResponse(res.data));
-                        action.asyncDispatch(push('/persons'));
-                    })
-                    .catch(err => action.asyncDispatch(actions.savePersonError(err)))
-            } else {
-                axios.post('persons', state.person)
-                    .then(res => {
-                        action.asyncDispatch(actions.savePersonResponse(res.data));
-                        action.asyncDispatch(push('/persons'));
-                    })
-                    .catch(err => action.asyncDispatch(actions.savePersonError(err)))
-            }
             return {
                 ...state,
                 loading: true
@@ -142,12 +117,6 @@ const reducer = (state = initialState, action) => {
                 error: action.err
             };
         case actionTypes.DELETE_PERSON: 
-            axios.delete('persons/' + action.id)
-                .then(res => {
-                    action.asyncDispatch(actions.deletePersonResponse(res.data));
-                    action.asyncDispatch(actions.fetchPersons());
-                })
-                .catch(err => action.asyncDispatch(actions.deletePersonError(err)))
             return {
                 ...state,
                 loading: true

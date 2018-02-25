@@ -26,7 +26,7 @@ class Person extends Component {
 
     onFormSubmit = (e) => {
         e.preventDefault();
-        this.props.savePerson(this.props.person._id)
+        this.props.savePerson(this.props.person._id, this.props.person)
     }
 
     onInputChange = (e) => {
@@ -58,7 +58,7 @@ const mapDispatchToProps = dispatch => {
     return {
         fetchPerson: (id) => dispatch(actions.fetchPerson(id)),
         changePersonProperty: (name, value) => dispatch(actions.changePersonProperty(name, value)),
-        savePerson: (id) => dispatch(actions.savePerson(id)),
+        savePerson: (id, person) => dispatch(actions.savePerson(id, person)),
         clearPerson: () => dispatch(actions.clearPerson())
     }
 }

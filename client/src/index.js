@@ -1,6 +1,7 @@
 import React from 'react';
 import createHistory from 'history/createBrowserHistory';
 import { ConnectedRouter, routerReducer, routerMiddleware } from 'react-router-redux';
+import thunk from 'redux-thunk';
 
 import ReactDOM from 'react-dom';
 import { createStore, applyMiddleware, compose, combineReducers } from 'redux';
@@ -8,8 +9,6 @@ import { Provider } from 'react-redux';
 
 import personsReducer from './store/persons/reducer';
 import authReducer from './store/auth/reducer';
-
-import asyncDispatchMiddleware from './store/middleware/asyncDispatchMiddleware';
 
 import './index.css';
 import App from './containers/App';
@@ -27,7 +26,7 @@ const reduxRouterMiddleware = routerMiddleware(history);
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 const store = createStore(rootReducer, composeEnhancers(
-        applyMiddleware(asyncDispatchMiddleware, reduxRouterMiddleware)
+        applyMiddleware(thunk, reduxRouterMiddleware)
     ));
 
 ReactDOM.render(

@@ -1,10 +1,22 @@
 import * as actionTypes from '../actionTypes';
+import axios from '../../axios-instance';
 
 export const signup = (username, password) => {
-    return {
-        type: actionTypes.SIGNUP,
+    const user = {
         username,
         password
+    };
+    return dispatch => {
+        dispatch(signupStart);
+        return axios.post('/users', user)
+            .then(res => dispatch(signupResponse(res)))
+            .catch(err => dispatch(signupError(err)));
+    }
+}
+
+export const signupStart = () => {
+    return {
+        type: actionTypes.SIGNUP,
     }
 }
 
@@ -23,10 +35,21 @@ export const signupError = err => {
 }
 
 export const login = (username, password) => {
-    return {
-        type: actionTypes.LOGIN,
+    const user = {
         username,
         password
+    };
+    return dispatch => {
+        dispatch(loginStart);
+        return axios.post('/users/authenticate', user)
+            .then(res => dispatch(loginResponse(res)))
+            .catch(err => dispatch(loginError(err)));
+    }
+}
+
+export const loginStart = () => {
+    return {
+        type: actionTypes.LOGIN,
     }
 }
 

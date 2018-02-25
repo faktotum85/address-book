@@ -1,12 +1,22 @@
 import * as actionTypes from '../actionTypes';
+import axios from '../../axios-instance';
+import { push } from 'react-router-redux';
 
 export const fetchPersons = (limit, offset) => {
     const query = new URLSearchParams();
     query.set('limit', limit || 10);
     query.set('offset', offset || 0);
+    return dispatch => {
+        dispatch(fetchPersonsStart);
+        return axios.get(`persons?${query}`)
+            .then(res => dispatch(fetchPersonsResponse(res.data)))
+            .catch(err => dispatch(fetchPersonsError(err)));
+    }
+}
+
+export const fetchPersonsStart = () => {
     return {
-        type: actionTypes.FETCH_PERSONS,
-        query: `?${query.toString()}`
+        type: actionTypes.FETCH_PERSONS
     }
 }
 
@@ -25,9 +35,18 @@ export const fetchPersonsError = (err) => {
 }
 
 export const fetchPerson = (id) => {
+    return dispatch => {
+        dispatch(fetchPersonStart());
+        return axios.get('persons/' + id)
+            .then(res => dispatch(fetchPersonResponse(res.data)))
+            .catch(err => dispatch(fetchPersonError(err)))
+        
+    }
+}
+
+export const fetchPersonStart = () => {
     return {
         type: actionTypes.FETCH_PERSON,
-        id
     }
 }
 
@@ -59,10 +78,30 @@ export const changePersonProperty = (name, value) => {
     }
 }
 
-export const savePerson = (id) => {
+export const savePerson = (id, person) => {
+    return dispatch => {
+        dispatch(savePersonStart());
+        if (id) {
+            return axios.put('persons/' + id, person)
+                .then(res => {
+                    dispatch(savePersonResponse(res.data));
+                    dispatch(push('/persons'));
+                })
+                .catch(err => dispatch(savePersonError(err)))
+        } else {
+            return axios.post('persons', person)
+                .then(res => {
+                    dispatch(savePersonResponse(res.data));
+                    dispatch(push('/persons'));
+                })
+                .catch(err => dispatch(savePersonError(err)))
+        }
+    }
+}
+
+export const savePersonStart = () => {
     return {
-        type: actionTypes.SAVE_PERSON,
-        id
+        type: actionTypes.SAVE_PERSON
     }
 }
 
@@ -80,9 +119,20 @@ export const savePersonError = (err) => {
 }
 
 export const deletePerson = (id) => {
+    return dispatch => {
+        dispatch(deletePersonStart);
+        return axios.delete('persons/' + id)
+            .then(res => {
+                dispatch(deletePersonResponse(res.data));
+                dispatch(fetchPersons());
+            })
+            .catch(err => dispatch(deletePersonError(err)))
+    }
+}
+
+export const deletePersonStart = () => {
     return {
-        type: actionTypes.DELETE_PERSON,
-        id
+        type: actionTypes.DELETE_PERSON
     }
 }
 

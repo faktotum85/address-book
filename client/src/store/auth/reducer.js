@@ -23,15 +23,6 @@ const initialState = {
 const reducer = (state = initialState, action) => {
     switch(action.type) {
         case actionTypes.SIGNUP:
-            {
-                const user = {
-                    username: action.username,
-                    password: action.password
-                };
-                axios.post('/users', user)
-                    .then(res => action.asyncDispatch(actions.signupResponse(res)))
-                    .catch(err => action.asyncDispatch(actions.signupError(err)));
-            }    
             return {
                 ...state,
                 error: null,
@@ -51,15 +42,6 @@ const reducer = (state = initialState, action) => {
                 loading: false
             }
         case actionTypes.LOGIN:
-            {
-                const user = {
-                    username: action.username,
-                    password: action.password
-                };
-                axios.post('/users/authenticate', user)
-                    .then(res => action.asyncDispatch(actions.loginResponse(res)))
-                    .catch(err => action.asyncDispatch(actions.loginError(err)));
-            }
             return {
                 ...state,
                 error: null,

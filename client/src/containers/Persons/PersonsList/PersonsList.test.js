@@ -1,5 +1,6 @@
 import React from 'react';
 import configureStore from 'redux-mock-store';
+import thunk from 'redux-thunk';
 import { shallow } from 'enzyme';
 import * as actions from '../../../store/actionTypes';
 
@@ -8,7 +9,7 @@ import ConnectedPersonsList, { PersonsList } from './PersonsList';
 describe('ConnectedPersonsList', () => {
     let shallowConnectedPersonsList, shallowPersonsList;
     let props, store, initialState;
-    const mockStore = configureStore();
+    const mockStore = configureStore([thunk]);
 
     const makeConnectedPersonsList = (props, initialState) => {
         if (!shallowConnectedPersonsList) {
@@ -80,13 +81,5 @@ describe('ConnectedPersonsList', () => {
         const shallowPersonsList = makePersonsList({ location: { search: '?limit=5&offset=10' }, fetchPersons });
         shallowPersonsList.setProps({ location: { search: '?limit=5&offset=10' }, fetchPersons });
         expect(fetchPersons.mock.calls.length).toBe(1);
-    });
-
-    it('passes a deletePerson handler to the DataTable that dispatches a DELETE_PERSON action', () => {
-        const shallowConnectedPersonsList = makeConnectedPersonsList(props, initialState);
-        const id = 7;
-        store.clearActions()
-        shallowConnectedPersonsList.find('DataTable').prop('deleteHandler')(id);
-        expect(store.getActions()).toEqual([{ type: actions.DELETE_PERSON, id}]);
     });
 });
