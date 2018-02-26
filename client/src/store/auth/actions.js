@@ -10,7 +10,7 @@ export const signup = (username, password) => {
         dispatch(signupStart);
         return axios.post('/users', user)
             .then(res => dispatch(signupResponse(res)))
-            .catch(err => dispatch(signupError(err)));
+            .catch(error => dispatch(signupError(error)));
     }
 }
 
@@ -27,10 +27,10 @@ export const signupResponse = res => {
     }
 }
 
-export const signupError = err => {
+export const signupError = error => {
     return {
         type: actionTypes.SIGNUP_ERROR,
-        err
+        error
     }
 }
 
@@ -43,7 +43,7 @@ export const login = (username, password) => {
         dispatch(loginStart);
         return axios.post('/users/authenticate', user)
             .then(res => dispatch(loginResponse(res)))
-            .catch(err => dispatch(loginError(err)));
+            .catch(error => dispatch(loginError(error)));
     }
 }
 
@@ -60,9 +60,9 @@ export const loginResponse = res => {
     }
 }
 
-export const loginError = err => {
+export const loginError = error => {
     return {
         type: actionTypes.LOGIN_ERROR,
-        err
+        error
     }
 }

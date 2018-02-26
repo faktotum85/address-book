@@ -10,7 +10,7 @@ export const fetchPersons = (limit, offset) => {
         dispatch(fetchPersonsStart);
         return axios.get(`persons?${query}`)
             .then(res => dispatch(fetchPersonsResponse(res.data)))
-            .catch(err => dispatch(fetchPersonsError(err)));
+            .catch(error => dispatch(fetchPersonsError(error)));
     }
 }
 
@@ -27,10 +27,10 @@ export const fetchPersonsResponse = (data) => {
     }
 }
 
-export const fetchPersonsError = (err) => {
+export const fetchPersonsError = (error) => {
     return {
         type: actionTypes.FETCH_PERSONS_ERROR,
-        err
+        error
     }
 }
 
@@ -39,8 +39,7 @@ export const fetchPerson = (id) => {
         dispatch(fetchPersonStart());
         return axios.get('persons/' + id)
             .then(res => dispatch(fetchPersonResponse(res.data)))
-            .catch(err => dispatch(fetchPersonError(err)))
-        
+            .catch(error => dispatch(fetchPersonError(error)));
     }
 }
 
@@ -50,23 +49,23 @@ export const fetchPersonStart = () => {
     }
 }
 
+export const fetchPersonResponse = (data) => {
+    return {
+        type: actionTypes.FETCH_PERSON_RESPONSE,
+        data
+    }
+}
+
+export const fetchPersonError = (error) => {
+    return {
+        type: actionTypes.FETCH_PERSON_ERROR,
+        error
+    }
+}
+
 export const clearPerson = () => {
     return {
         type: actionTypes.CLEAR_PERSON
-    }
-}
-
-export const fetchPersonResponse = (person) => {
-    return {
-        type: actionTypes.FETCH_PERSON_RESPONSE,
-        person
-    }
-}
-
-export const fetchPersonError = (err) => {
-    return {
-        type: actionTypes.FETCH_PERSON_ERROR,
-        err
     }
 }
 
@@ -87,14 +86,14 @@ export const savePerson = (id, person) => {
                     dispatch(savePersonResponse(res.data));
                     dispatch(push('/persons'));
                 })
-                .catch(err => dispatch(savePersonError(err)))
+                .catch(error => dispatch(savePersonError(error)))
         } else {
             return axios.post('persons', person)
                 .then(res => {
                     dispatch(savePersonResponse(res.data));
                     dispatch(push('/persons'));
                 })
-                .catch(err => dispatch(savePersonError(err)))
+                .catch(error => dispatch(savePersonError(error)))
         }
     }
 }
@@ -111,10 +110,10 @@ export const savePersonResponse = () => {
     }
 }
 
-export const savePersonError = (err) => {
+export const savePersonError = (error) => {
     return {
         type: actionTypes.SAVE_PERSON_ERROR,
-        err
+        error
     }
 }
 
@@ -126,7 +125,7 @@ export const deletePerson = (id) => {
                 dispatch(deletePersonResponse(res.data));
                 dispatch(fetchPersons());
             })
-            .catch(err => dispatch(deletePersonError(err)))
+            .catch(error => dispatch(deletePersonError(error)))
     }
 }
 
@@ -143,9 +142,9 @@ export const deletePersonResponse = (id) => {
     }
 }
 
-export const deletePersonError = (err) => {
+export const deletePersonError = (error) => {
     return {
         type: actionTypes.DELETE_PERSON_ERROR,
-        err
+        error
     }
 }

@@ -1,6 +1,4 @@
 import * as actionTypes from '../actionTypes';
-import * as actions from './actions';
-import axios from '../../axios-instance';
 
 const initialState = {
     config: {
@@ -38,7 +36,7 @@ const reducer = (state = initialState, action) => {
         case actionTypes.SIGNUP_ERROR: 
             return {
                 ...state,
-                error: action.err.response.data,
+                error: action.error.response.data,
                 loading: false
             }
         case actionTypes.LOGIN:
@@ -57,7 +55,7 @@ const reducer = (state = initialState, action) => {
         case actionTypes.LOGIN_ERROR:
             return {
                 ...state,
-                error: action.err.response.data,
+                error: action.error.response.data,
                 loading: false
             }
         default: 
