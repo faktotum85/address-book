@@ -2,12 +2,12 @@ import * as actionTypes from '../actionTypes';
 import axios from '../../axios-instance';
 import { push } from 'react-router-redux';
 
-export const fetchPersons = (limit, offset) => {
+export const fetchPersons = (limit = 10, offset = 0) => {
     const query = new URLSearchParams();
-    query.set('limit', limit || 10);
-    query.set('offset', offset || 0);
+    query.set('limit', limit);
+    query.set('offset', offset);
     return dispatch => {
-        dispatch(fetchPersonsStart);
+        dispatch(fetchPersonsStart());
         return axios.get(`persons?${query}`)
             .then(res => dispatch(fetchPersonsResponse(res.data)))
             .catch(error => dispatch(fetchPersonsError(error)));
@@ -119,7 +119,7 @@ export const savePersonError = (error) => {
 
 export const deletePerson = (id) => {
     return dispatch => {
-        dispatch(deletePersonStart);
+        dispatch(deletePersonStart());
         return axios.delete('persons/' + id)
             .then(res => {
                 dispatch(deletePersonResponse(res.data));
