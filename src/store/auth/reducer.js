@@ -14,6 +14,7 @@ const initialState = {
         }
     },
     token: null,
+    username: null,
     loading: false,
     error: null
 }
@@ -36,7 +37,7 @@ const reducer = (state = initialState, action) => {
         case actionTypes.SIGNUP_ERROR: 
             return {
                 ...state,
-                error: action.error.response.data,
+                error: action.error.response.data.message,
                 loading: false
             }
         case actionTypes.LOGIN:
@@ -49,13 +50,14 @@ const reducer = (state = initialState, action) => {
             return {
                 ...state,
                 token: action.token,
+                username: action.username,
                 loading: false,
                 error: null
             }
         case actionTypes.LOGIN_ERROR:
             return {
                 ...state,
-                error: action.error.response.data,
+                error: action.error.response.data.message,
                 loading: false
             }
         default: 

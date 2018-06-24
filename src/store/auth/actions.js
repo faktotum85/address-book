@@ -40,7 +40,7 @@ export const login = (username, password) => {
         password
     };
     return dispatch => {
-        dispatch(loginStart);
+        dispatch(loginStart());
         return axios.post('/users/authenticate', user)
             .then(res => dispatch(loginResponse(res)))
             .catch(error => dispatch(loginError(error)));
@@ -56,7 +56,8 @@ export const loginStart = () => {
 export const loginResponse = res => {
     return {
         type: actionTypes.LOGIN_RESPONSE,
-        token: res.data.token
+        token: res.data.token,
+        username: res.data.username
     }
 }
 

@@ -31,7 +31,7 @@ const initialState = {
     persons: [],
     person: {},
     loading: false,
-    error: false,
+    error: null,
     pagination_first: null,
     pagination_prev: null,
     pagination_next: null,
@@ -46,13 +46,13 @@ const reducer = (state = initialState, action) => {
             return {
                 ...state,
                 loading: true,
-                error: false
+                error: null
             }
         case actionTypes.FETCH_PERSONS_RESPONSE:
             return {
                 ...state,
                 loading: false,
-                error: false,
+                error: null,
                 persons: action.data.results,
                 pagination_first: action.data._links.first,
                 pagination_prev: action.data._links.prev,
@@ -71,13 +71,13 @@ const reducer = (state = initialState, action) => {
             return {
                 ...state,
                 loading: true,
-                error: false
+                error: null
             }
         case actionTypes.FETCH_PERSON_RESPONSE:
             return {
                 ...state,
                 loading: false,
-                error: false,
+                error: null,
                 person: action.data
             }
         case actionTypes.FETCH_PERSON_ERROR:
@@ -103,13 +103,13 @@ const reducer = (state = initialState, action) => {
             return {
                 ...state,
                 loading: true,
-                error: false
+                error: null
             };
         case actionTypes.SAVE_PERSON_RESPONSE:
             return {
                 ...state, 
                 loading: false,
-                error: false
+                error: null
             };
         case actionTypes.SAVE_PERSON_ERROR:
             return {
@@ -121,13 +121,13 @@ const reducer = (state = initialState, action) => {
             return {
                 ...state,
                 loading: true,
-                error: false
+                error: null
             }
         case actionTypes.DELETE_PERSON_RESPONSE:
             return {
                 ...state,
                 loading: false,
-                error: false
+                error: null
             }
         case actionTypes.DELETE_PERSON_ERROR:
             return {

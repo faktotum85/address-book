@@ -29,14 +29,14 @@ describe('persons reducer', () => {
     });
 
     it('sets loading to true and error to false for a FETCH_PERSONS action', () => {
-        expect(reducer({},{type: actionTypes.FETCH_PERSONS})).toEqual({loading: true, error: false});
+        expect(reducer({},{type: actionTypes.FETCH_PERSONS})).toEqual({loading: true, error: null});
     });
 
     it('sets loading and error to false and parses the relevant data for a FETCH_PERSONS_RESPONSE action', () => {
         const nextState = reducer({}, { type: actionTypes.FETCH_PERSONS_RESPONSE, data: mockPersonsResponse});
         expect(nextState).toEqual({
             loading: false,
-            error: false,
+            error: null,
             persons: mockPersonsResponse.results,
             pagination_first: mockPersonsResponse._links.first,
             pagination_prev: mockPersonsResponse._links.prev,
@@ -52,14 +52,14 @@ describe('persons reducer', () => {
     });
 
     it('sets loading to true and error to false for a FETCH_PERSON action', () => {
-        expect(reducer({}, { type: actionTypes.FETCH_PERSON })).toEqual({ loading: true, error: false });
+        expect(reducer({}, { type: actionTypes.FETCH_PERSON })).toEqual({ loading: true, error: null });
     });
 
     it('sets loading and error to false and parses the relevant data for a FETCH_PERSON_RESPONSE action', () => {
         const nextState = reducer({}, { type: actionTypes.FETCH_PERSON_RESPONSE, data: mockPersonResponse });
         expect(nextState).toEqual({
             loading: false,
-            error: false,
+            error: null,
             person: mockPersonResponse
         });
     });
@@ -78,11 +78,11 @@ describe('persons reducer', () => {
     });
 
     it('sets loading to true and error to false for a SAVE_PERSON action', () => {
-        expect(reducer({}, { type: actionTypes.SAVE_PERSON })).toEqual({ loading: true, error: false });
+        expect(reducer({}, { type: actionTypes.SAVE_PERSON })).toEqual({ loading: true, error: null });
     });
 
     it('sets loading and error to false for a SAVE_PERSON_RESPONSE action', () => {
-        expect(reducer({}, { type: actionTypes.SAVE_PERSON_RESPONSE })).toEqual({ loading: false, error: false });
+        expect(reducer({}, { type: actionTypes.SAVE_PERSON_RESPONSE })).toEqual({ loading: false, error: null });
     }); 
 
     it('sets loading to false and passes on the error for a SAVE_PERSON_ERROR action', () => {
@@ -90,11 +90,11 @@ describe('persons reducer', () => {
     });
 
     it('sets loading to true and error to false for a DELETE_PERSON action', () => {
-        expect(reducer({}, { type: actionTypes.DELETE_PERSON })).toEqual({ loading: true, error: false });
+        expect(reducer({}, { type: actionTypes.DELETE_PERSON })).toEqual({ loading: true, error: null });
     });
 
     it('sets loading and error to false for a DELETE_PERSON_RESPONSE action', () => {
-        expect(reducer({}, { type: actionTypes.DELETE_PERSON_RESPONSE })).toEqual({ loading: false, error: false });
+        expect(reducer({}, { type: actionTypes.DELETE_PERSON_RESPONSE })).toEqual({ loading: false, error: null });
     });
 
     it('sets loading to false and passes on the error for a DELETE_PERSON_ERROR action', () => {
