@@ -7,7 +7,7 @@
     "start": "concurrently \"npm run server\" \"npm run client\"",
     "server": "nodemon server.js",
     "client": "node start-client.js",
-    "build": "npm run build --prefix client"
+    "build": "node client/scripts/build.js"
   },
   "author": "",
   "license": "ISC",
