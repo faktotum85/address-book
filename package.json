@@ -6,7 +6,8 @@
   "scripts": {
     "start": "concurrently \"npm run server\" \"npm run client\"",
     "server": "nodemon server.js",
-    "client": "node start-client.js"
+    "client": "node start-client.js",
+    "postinstall": "npm install --prefix client"
   },
   "author": "",
   "license": "ISC",
