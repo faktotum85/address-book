@@ -14,7 +14,7 @@
 
 ## Frontend
 - Make responsive
-- Add 
+- Add link to form for adding address when table is empty
 - Build out propTypes for DataForm component to cover properties of config object
 
 ## Testing
