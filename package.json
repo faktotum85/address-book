@@ -7,7 +7,7 @@
     "start": "concurrently \"npm run server\" \"npm run client\"",
     "server": "nodemon server.js",
     "client": "node start-client.js",
-    "postinstall": "npm install --prefix client && npm run build --prefix client"
+    "build": "npm run build --prefix client"
   },
   "author": "",
   "license": "ISC",
