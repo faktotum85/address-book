@@ -1,3 +1,8 @@
+# What is this?
+This is the frontend for a playground project I set up to experiment with a few techniques, primarily testing in React.  
+The backend is here: https://github.com/faktotum85/address-book-server
+You can see a demo of the full application here: https://sw-address-book.herokuapp.com
+
 # Running the application locally
 - Pull the repo and run npm install
 - Make a copy of .env.dist and rename it to .env
@@ -7,16 +12,7 @@
 - Make sure the api server is running (separate repo)
 
 # Todos
-
-## Backend 
-- Provide proper error messages to the frontend for authentication
-- Authenticate routes / filter results
-- Add route for logging out
-
-## Frontend
 - Make responsive
 - Add link to form for adding address when table is empty
 - Build out propTypes for DataForm component to cover properties of config object
-
-## Testing
-- Improve coverage
+- Improve test coverage
