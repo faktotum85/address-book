@@ -31,6 +31,7 @@ const reducer = (state = initialState, action) => {
             return {
                 ...state,
                 token: action.token,
+                username: action.username,
                 loading: false,
                 error: null
             }
@@ -59,6 +60,12 @@ const reducer = (state = initialState, action) => {
                 ...state,
                 error: action.error.response.data.message,
                 loading: false
+            }
+        case actionTypes.LOGOUT:
+            return {
+                ...state,
+                token: null,
+                username: null
             }
         default: 
             return state;

@@ -14,7 +14,7 @@ const DataTableRow = (props) => {
         </Link>
         : null;
     const deleteButton = props.deleteHandler ?
-        <button onClick={() => props.deleteHandler(props.id)}>
+        <button onClick={() => props.deleteHandler(props.id, props.token)}>
             Delete
         </button>
         : null;

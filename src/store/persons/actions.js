@@ -2,13 +2,17 @@ import * as actionTypes from '../actionTypes';
 import axios from '../../axios-instance';
 import { push } from 'react-router-redux';
 
-export const fetchPersons = (limit = 10, offset = 0) => {
+export const fetchPersons = (limit = 10, offset = 0, token) => {
     const query = new URLSearchParams();
     query.set('limit', limit);
     query.set('offset', offset);
     return dispatch => {
         dispatch(fetchPersonsStart());
-        return axios.get(`persons?${query}`)
+        return axios.get(`persons?${query}`, {
+            headers: {
+                    'Authorization': `Bearer ${token}`
+                }
+            })
             .then(res => dispatch(fetchPersonsResponse(res.data)))
             .catch(error => dispatch(fetchPersonsError(error)));
     }
@@ -34,10 +38,14 @@ export const fetchPersonsError = (error) => {
     }
 }
 
-export const fetchPerson = (id) => {
+export const fetchPerson = (id, token) => {
     return dispatch => {
         dispatch(fetchPersonStart());
-        return axios.get('persons/' + id)
+        return axios.get('persons/' + id, {
+            headers: {
+                    'Authorization': `Bearer ${token}`
+                }
+            })
             .then(res => dispatch(fetchPersonResponse(res.data)))
             .catch(error => dispatch(fetchPersonError(error)));
     }
@@ -77,18 +85,26 @@ export const changePersonProperty = (name, value) => {
     }
 }
 
-export const savePerson = (id, person) => {
+export const savePerson = (id, person, token) => {
     return dispatch => {
         dispatch(savePersonStart());
         if (id) {
-            return axios.put('persons/' + id, person)
+            return axios.put('persons/' + id, person, {
+                headers: {
+                        'Authorization': `Bearer ${token}`
+                    }
+                })
                 .then(res => {
                     dispatch(savePersonResponse(res.data));
                     dispatch(push('/persons'));
                 })
                 .catch(error => dispatch(savePersonError(error)))
         } else {
-            return axios.post('persons', person)
+            return axios.post('persons', person, {
+                headers: {
+                        'Authorization': `Bearer ${token}`
+                    }
+                })
                 .then(res => {
                     dispatch(savePersonResponse(res.data));
                     dispatch(push('/persons'));
@@ -117,13 +133,17 @@ export const savePersonError = (error) => {
     }
 }
 
-export const deletePerson = (id) => {
+export const deletePerson = (id, token) => {
     return dispatch => {
         dispatch(deletePersonStart());
-        return axios.delete('persons/' + id)
+        return axios.delete('persons/' + id, {
+            headers: {
+                    'Authorization': `Bearer ${token}`
+                }
+            })
             .then(res => {
                 dispatch(deletePersonResponse(res.data));
-                dispatch(fetchPersons());
+                dispatch(fetchPersons(null, null, token));
             })
             .catch(error => dispatch(deletePersonError(error)))
     }

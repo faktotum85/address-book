@@ -31,7 +31,8 @@ describe('Person', () => {
                 config: {},
                 person: {},
                 loading: false
-            }
+            },
+            auth: {}
         }
     });
 

@@ -48,6 +48,7 @@ ShallowWrapper {
         "unsubscribe": [Function],
       }
     }
+    token={undefined}
   />,
   Symbol(enzyme.__renderer__): Object {
     "batchedUpdates": [Function],
@@ -72,6 +73,7 @@ ShallowWrapper {
         "prev": "",
         "start": "",
       },
+      "token": undefined,
     },
     "ref": null,
     "rendered": null,
@@ -94,6 +96,7 @@ ShallowWrapper {
           "prev": "",
           "start": "",
         },
+        "token": undefined,
       },
       "ref": null,
       "rendered": null,

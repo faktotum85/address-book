@@ -15,7 +15,7 @@ const DataTable = (props) => {
         if (props.data) {
             dataRows = props.data.map((row, index) => {
                 const keyedRow = keys.map(label => row[label] || '');
-                return <DataTableRow key={row['_id'] || index} rowData={keyedRow} id={row['_id'] || index} deleteHandler={props.deleteHandler} />
+                return <DataTableRow key={row['_id'] || index} rowData={keyedRow} id={row['_id'] || index} deleteHandler={props.deleteHandler} token={props.token}/>
             });
         }
     }

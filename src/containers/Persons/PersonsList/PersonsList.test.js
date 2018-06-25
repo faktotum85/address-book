@@ -47,7 +47,8 @@ describe('ConnectedPersonsList', () => {
                 pagination_last: '',
                 pagination_count: '',
                 pagination_start: '',
-            }
+            },
+            auth: {}
         };
     });
 

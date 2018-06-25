@@ -10,7 +10,7 @@ class Person extends Component {
     componentWillMount() {
         const id = this.props.match.params.id;
         if (id) {
-            this.props.fetchPerson(id);
+            this.props.fetchPerson(id, this.props.token);
         } else {
             this.props.clearPerson();
         }
@@ -20,13 +20,13 @@ class Person extends Component {
         const currentId = this.props.match.params.id;
         const nextId = nextProps.match.params.id;
         if (currentId !== nextId) {
-            nextId ? nextProps.fetchPerson(nextId) : nextProps.clearPerson();
+            nextId ? nextProps.fetchPerson(nextId, nextProps.token) : nextProps.clearPerson();
         }
     }
 
     onFormSubmit = (e) => {
         e.preventDefault();
-        this.props.savePerson(this.props.person._id, this.props.person)
+        this.props.savePerson(this.props.person._id, this.props.person, this.props.token)
     }
 
     onInputChange = (e) => {
@@ -50,15 +50,16 @@ const mapStateToProps = state => {
     return {
         config: state.persons.config,
         person: state.persons.person,
-        loading: state.persons.loading
+        loading: state.persons.loading,
+        token: state.auth.token,
     }
 }
 
 const mapDispatchToProps = dispatch => {
     return {
-        fetchPerson: (id) => dispatch(actions.fetchPerson(id)),
+        fetchPerson: (id, token) => dispatch(actions.fetchPerson(id, token)),
         changePersonProperty: (name, value) => dispatch(actions.changePersonProperty(name, value)),
-        savePerson: (id, person) => dispatch(actions.savePerson(id, person)),
+        savePerson: (id, person, token) => dispatch(actions.savePerson(id, person, token)),
         clearPerson: () => dispatch(actions.clearPerson())
     }
 }

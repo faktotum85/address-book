@@ -55,7 +55,7 @@ describe('App', () => {
                 username: 'Simon Weller',
             }
         });
-        expect(app.find('NavLink[to="/logout"]').length).toBe(1);
+        expect(app.find('#logout').length).toBe(1);
         expect(app.find('NavLink[to="/login"]').length).toBe(0);
         expect(app.find('NavLink[to="/signup"]').length).toBe(0);    });
 
@@ -65,7 +65,7 @@ describe('App', () => {
                 username: null,
             }
         });
-        expect(app.find('NavLink[to="/logout"]').length).toBe(0);
+        expect(app.find('#logout').length).toBe(0);
         expect(app.find('NavLink[to="/login"]').length).toBe(1);
         expect(app.find('NavLink[to="/signup"]').length).toBe(1);
     });

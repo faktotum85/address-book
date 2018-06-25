@@ -48,7 +48,7 @@ describe('DataTableRow', () => {
         props.id = 27;
         const shallowRow = dataTableRow(props);
         shallowRow.find('.actions button').simulate('click');
-        expect(deleteHandler).toBeCalledWith(27);
+        expect(deleteHandler).toBeCalledWith(27, undefined);
     });
 
     it('renders an edit link in the action cell if an id is passed in and a url can be matched', () => {

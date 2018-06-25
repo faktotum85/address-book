@@ -48,7 +48,7 @@ class Auth extends Component {
                         title="Log in"
                         data={this.state}
                         config={this.props.config}
-                        buttonText='Sign up'
+                        buttonText='Log in'
                         handleInputChange={this.onInputChange}
                         handleSubmit={this.onSubmitLogin}
                     />

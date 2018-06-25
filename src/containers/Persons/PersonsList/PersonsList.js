@@ -8,13 +8,13 @@ import Spinner from '../../../components/UI/Spinner/Spinner';
 export class PersonsList extends Component {
     componentWillMount() {
         const query = new URLSearchParams(this.props.location.search);
-        this.props.fetchPersons(query.get('limit'), query.get('offset'));
+        this.props.fetchPersons(query.get('limit'), query.get('offset'), this.props.token);
     }
 
     componentWillReceiveProps(nextProps) {
         if (this.props.location.search !== nextProps.location.search) {
             const query = new URLSearchParams(nextProps.location.search);
-            nextProps.fetchPersons(query.get('limit'), query.get('offset'));
+            nextProps.fetchPersons(query.get('limit'), query.get('offset'), this.props.token);
         }
     }
 
@@ -26,6 +26,7 @@ export class PersonsList extends Component {
                     labels={this.props.config} 
                     data={this.props.persons}
                     deleteHandler={this.props.deletePerson}
+                    token={this.props.token}
                     pagination={{
                         first: this.props.first, 
                         prev: this.props.prev, 
@@ -49,14 +50,15 @@ const mapStateToProps = state => {
         next: state.persons.pagination_next,
         last: state.persons.pagination_last,
         count: state.persons.pagination_count,
-        start: state.persons.pagination_start
+        start: state.persons.pagination_start,
+        token: state.auth.token
     }
 }
 
 const mapDispatchToProps = dispatch => {
     return {
-        fetchPersons: (limit, offset) => dispatch(actions.fetchPersons(limit, offset)),
-        deletePerson: (id) => dispatch(actions.deletePerson(id))
+        fetchPersons: (limit, offset, token) => dispatch(actions.fetchPersons(limit, offset, token)),
+        deletePerson: (id, token) => dispatch(actions.deletePerson(id, token))
     }
 }
 
